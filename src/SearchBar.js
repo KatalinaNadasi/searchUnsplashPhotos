@@ -1,16 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import './App.css';
 
 function SearchBar({onSearchSubmit}) {
-
-  const [term, setTerm] = useState('')
 
   const inputSearch = useRef()
 
   const onSubmit = (event) => {
     event.preventDefault()
-    setTerm(inputSearch.current.value)
-    onSearchSubmit(term)
+    onSearchSubmit(inputSearch.current.value)
   }
 
   const formStyle = {

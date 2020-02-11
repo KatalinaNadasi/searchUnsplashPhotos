@@ -8,13 +8,14 @@ import ImageList from './ImageList';
 function App() {
 
   const [images, setImages] = useState([])
+  const [loaded, setLoaded]= useState(false)
 
   const onSearchSubmit = async (term) => {
     const response = await unsplash.get('/search/photos', {
         params: { query: term },
     });
     setImages(response.data.results)
-    console.log(response);
+    setLoaded(true)
   }
 
   const wrapperStyle = {
@@ -31,13 +32,16 @@ function App() {
       gridGap: '0 5px',
       gridAutoRows: '10px',
   }
-
+console.log(images)
   return (
     <div style={wrapperStyle}>
       <SearchBar onSearchSubmit={onSearchSubmit} />
         <div style={containerStyle }>
-          <ImageList images={images} />
+            <ImageList images={images} />
         </div>
+      {
+        !images.length && loaded && <h1>There are no images with this keyword</h1>
+      }
     </div>
   );
 }
